@@ -1,0 +1,30 @@
+{% extends 'quizapp/navbar.html'%}    
+{% load static %}
+    {% block title %}home{% endblock title %}
+        {% block content %}
+        
+        <section class="quote-section">
+          <div class="quote-container">
+            <p class="quote-text">
+            🧠 "One day, you’ll look back and be thankful you never gave up. Let today be part of that story."
+            </p>
+            {% comment %} <p class="quote-author">— Florence Nightingale</p> {% endcomment %}
+          </div>
+        </section>
+
+        <main class="main-content">
+          <h1 class="welcome-text">Welcome to Your NCLEX Journey</h1>
+          <p class="subtitle">
+            Master your nursing knowledge with our comprehensive quiz platform
+          </p>
+          <a href="{% url 'topic' %}" class="cta-button">Start Practicing</a>
+        </main>
+        
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+    {% endblock content %}
+  </body>

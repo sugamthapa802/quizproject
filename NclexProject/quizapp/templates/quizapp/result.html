@@ -1,0 +1,10 @@
+{% extends 'quizapp/navbar.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h2 class="text-success mb-4">Quiz Completed!</h2>
+        <h4 class="mb-3">Your Total Score: {{ total_score }}</h4>
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'quizapp/navbar.html' %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card p-4 shadow-sm">
+    <h4>Question {{ current_index|add:1 }} of {{ total_questions }}</h4>
+    <p class="text-muted">Score: {{ score }} / {{ total_questions }}</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <p class="lead">{{ question.question_text }}</p>
+
+      {% if not show_explanation %}
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="option" value="A" required>
+          <label class="form-check-label">A. {{ question.option_a }}</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="option" value="B">
+          <label class="form-check-label">B. {{ question.option_b }}</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="option" value="C">
+          <label class="form-check-label">C. {{ question.option_c }}</label>
+        </div>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="radio" name="option" value="D">
+          <label class="form-check-label">D. {{ question.option_d }}</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Answer</button>
+
+      {% else %}
+        {% if is_correct %}
+          <div class="alert alert-success mt-3">✅ Correct!</div>
+        {% else %}
+          {% comment %} <div class="alert alert-danger mt-3">❌ Incorrect! You selected: {{ selected_option }}</div>
+          <label class="form-check-label">Option A. {{ question.option_a }}</label><br>
+          <label class="form-check-label">Option B. {{ question.option_b }}</label><br>
+          <label class="form-check-label">Option C. {{ question.option_c }}</label><br>
+          <label class="form-check-label">Option D. {{ question.option_d }}</label><br> {% endcomment %}
+
+          <div class="alert alert-danger mt-3">❌ Incorrect! You selected: {{ selected_option }}</div>
+
+          <label class="form-check-label">Option A. {{ question.option_a }}</label><br>
+          <label class="form-check-label">Option B. {{ question.option_b }}</label><br>
+          <label class="form-check-label">Option C. {{ question.option_c }}</label><br>
+          <label class="form-check-label">Option D. {{ question.option_d }}</label><br>
+
+          <div class="alert alert-warning mt-2">
+            ✅ The correct answer is:
+            {% if question.correct_option == "A" %}
+              A. {{ question.option_a }}
+            {% elif question.correct_option == "B" %}
+              B. {{ question.option_b }}
+            {% elif question.correct_option == "C" %}
+              C. {{ question.option_c }}
+            {% elif question.correct_option == "D" %}
+              D. {{ question.option_d }}
+            {% endif %}
+         
+
+        {% endif %}
+ 
+        <div class="alert alert-info mt-2">
+          <strong>Explanation:</strong> {{ explanation }}
+        </div>
+
+        <button type="submit" name="next" class="btn btn-success mt-3">Next Question</button>
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock %}

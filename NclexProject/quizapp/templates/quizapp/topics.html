@@ -1,0 +1,71 @@
+{% extends 'quizapp/navbar.html' %}
+{% block title %}topic page{% endblock title %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Choose a Topic to Practice</h2>
+    
+
+    <form method="post" >
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="list-group">
+                    {% for topic in topics %}
+                    <label class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>{{ topic.name }}</div>
+                        <input class="form-check-input me-1 topic-checkbox" type="radio" name="selected_topic" value="{{ topic.id }}" required>
+                    </label>
+                    {% empty %}
+                    <p>No topics available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="text-center mt-4">
+        <button type="button" class="btn btn-primary px-4 me-2" onclick="submitTopic()">Start Quiz</button>
+
+        <!-- New Review Mistakes button -->
+        <button type="button" class="btn btn-warning px-4" onclick="submitReview()">Review Mistakes</button>
+      </div>
+
+
+
+    </form>
+</div>
+
+<script>
+    // Optional: Uncheck if already selected (if needed)
+    document.querySelectorAll('.topic-checkbox').forEach((box) => {
+        box.addEventListener('click', function () {
+            document.querySelectorAll('.topic-checkbox').forEach(b => {
+                if (b !== this) b.checked = false;
+            });
+        });
+    });
+    function submitTopic() {
+        const selected = document.querySelector('input[name="selected_topic"]:checked');
+        if (selected) {
+            const topicId = selected.value;
+            window.location.href = `{% url 'start_quiz' 0 %}`.replace('/0', `/${topicId}`);
+        } else {
+            alert("Please select a topic.");
+        }
+    }
+
+    
+    function submitReview() {
+        const selected = document.querySelector('input[name="selected_topic"]:checked');
+        if (selected) {
+            const topicId = selected.value;
+            window.location.href = `{% url 'review' 0 %}`.replace('/0', `/${topicId}`);
+        } else {
+            alert("Please select a topic.");
+        }
+    }
+</script>
+{% endblock %}
