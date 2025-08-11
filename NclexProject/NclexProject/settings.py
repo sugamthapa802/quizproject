@@ -34,7 +34,10 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['your-render-url.onrender.com', 'localhost', '127.0.0.1']
 
+SECRET_KEY = os.getenv('SECRET_KEY')
 
+if not SECRET_KEY:
+    raise ValueError("No SECRET_KEY set for Django application")
 
 # Application definition
 
