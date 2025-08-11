@@ -32,7 +32,7 @@ DEBUG = True
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['your-render-url.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['quizproject-0r93.onrender.com', 'localhost', '127.0.0.1']
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
