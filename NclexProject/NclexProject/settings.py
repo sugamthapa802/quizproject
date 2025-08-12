@@ -102,18 +102,25 @@ WSGI_APPLICATION = 'NclexProject.wsgi.application'
 #         ssl_require=False
 #     )
 # }
-tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+# tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': tmpPostgres.path.lstrip('/'),
+#         'USER': tmpPostgres.username,
+#         'PASSWORD': tmpPostgres.password,
+#         'HOST': tmpPostgres.hostname,
+#         'PORT': tmpPostgres.port or 5432,
+#         'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': tmpPostgres.path.lstrip('/'),
-        'USER': tmpPostgres.username,
-        'PASSWORD': tmpPostgres.password,
-        'HOST': tmpPostgres.hostname,
-        'PORT': tmpPostgres.port or 5432,
-        'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
-    }
+    'default': dj_database_url.parse(
+        os.environ.get("DATABASE_URL"), 
+        conn_max_age=600,  # Reuse DB connections for up to 10 minutes
+        ssl_require=True
+    )
 }
 
 
